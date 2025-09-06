@@ -9,11 +9,11 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch(err => console.error("❌ Unable to connect:", err));
 const personSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  age: { type: Number, required: true},
+  age: Number,
   favoriteFoods: [String]
 })
 
-const Person = mongoose.model("Person", personSchema);
+let Person = mongoose.model("Person", personSchema);
 
 
 
