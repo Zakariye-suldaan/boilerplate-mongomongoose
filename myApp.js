@@ -80,17 +80,32 @@ const findAndUpdate = (personName, done) => {
 };
 
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findByIdAndRemove(personId, function (err, data) {
+    if (err) return console.log(err);
+    return done(null, data);
+  });
 };
 
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-  done(null /*, data*/);
+
+  Person.remove({name: nameToRemove}, function (err, data) {
+    if (err) return console.log(err);
+    return done(null, data);
+  });
 };
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-  done(null /*, data*/);
+
+  Person.find({favoriteFoods: foodToSearch})
+    .sort({name: 1})
+    .limit(2)
+    .select({age: 0})
+    .exec(function (err, data) {
+      if (err) return console.log(err);
+      return done(null, data);
+    });
 };
 
 // ----- DO NOT EDIT BELOW THIS LINE -----
